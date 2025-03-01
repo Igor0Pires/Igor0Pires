@@ -18,7 +18,7 @@ Não está funcionando (ainda...)
 #### **Branco (listradas):** 
 | FROM | TO |
 | ---- | -- |
-| **A3** |[B4]()|
+| **A3** |[B4](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=titulo&body=descrição)|
 | **C3** |[B4](), [D4]()|
 | **E3** |[D4](), [F4]()|
 | **G3** |[F4](), [H4]()|
