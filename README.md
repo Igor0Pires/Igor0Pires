@@ -19,6 +19,6 @@ Não está funcionando (ainda...)
 | FROM | TO |
 | ---- | -- |
 | **A3** |[B4](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-&body=descricao)|
-| **C3** |[B4](), [D4]()|
+| **C3** |[B4](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-), [D4](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=titulo&body=descricao)|
 | **E3** |[D4](), [F4]()|
 | **G3** |[F4](), [H4]()|
