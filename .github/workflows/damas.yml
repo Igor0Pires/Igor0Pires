@@ -7,10 +7,79 @@ on:
 jobs:
   move:
     runs-on: ubuntu-latest
-    if: startsWith(github.event.issue.title, 'damas-')
+    if: startsWith(github.event.issue.title, 'damas-') 
     steps:
       - if: startsWith(github.event.issue.title, 'damas-') && contains(github.event.issue.labels.*.name, 'test')
         run: |
           # the triggering issue contains test
           echo "${{ github.event_name }}"
           exit 1
+
+      - name: Set env vars
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "${{ github.event_name }}"
+          echo "REPOSITORY=${{ github.repository }}" >> $GITHUB_ENV
+          echo "ISSUE_NUMBER=${{ github.event.issue.number }}" >> $GITHUB_ENV
+          echo "USER=${{ github.event.issue.user.login }}" >> $GITHUB_ENV
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Setup
+        run: |
+          pip install PyGithub pydraughts
+
+      - name: Play
+        run: |
+          python << EOF
+          from github import Github
+          from draughts import Board, Move, svg
+          import os
+
+          TOKEN = os.getenv("GITHUB_TOKEN")
+          REPO = os.getenv("REPOSITORY")
+          USER = os.getenv("USER")
+
+          board = Board(variant="brazilian")
+
+          try:
+              move = Move(board, steps_move=[9, 13])
+              board.push(move)
+              move = Move(board, steps_move=[22, 18])
+              board.push(move)
+              move = Move(board, steps_move=[13, 22]) 
+              board.push(move)
+
+              content = svg.create_svg(board)
+              with open("board.svg", "w") as file:
+                  file.write(content)
+          except ValueError as e:
+              print(f"Invalid move: {e}")
+              exit(1)
+          except Exception as e:
+              print(f"Error generating board.svg: {e}")
+              exit(1)
+
+          with open("README.md", "a") as f:
+              f.write(f"## {USER} \n")
+              f.write(f"![board](board.svg) \n")
+          EOF
+
+      - name: Upload board.svg
+        uses: actions/upload-artifact@v3
+        with:
+          name: board
+          path: board.svg
+
+      - name: Commit board.svg
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add board.svg README.md
+          git commit -m "Add board.svg to README"
+          git push
+
+
