@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.event.issue.title, 'damas-') 
     steps:
+      - uses: actions/checkout@v4
       - if: startsWith(github.event.issue.title, 'damas-') && contains(github.event.issue.labels.*.name, 'test')
         run: |
           # the triggering issue contains test
@@ -74,12 +75,12 @@ jobs:
           name: board
           path: board.svg
 
-      - name: Commit board.svg
+      - name: Commit files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Token automático do GitHub
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add board.svg README.md
-          git commit -m "Add board.svg to README"
-          git push
-
-
+          git add assets/board.svg README.md
+          git commit -m "Update board.svg and README"
+          git push origin HEAD
