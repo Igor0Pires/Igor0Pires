@@ -78,16 +78,23 @@ jobs:
 
           EOF
 
-      - name: Commit files
+      - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Configuração do Git
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add assets/board.svg README.md
-          git diff --quiet && git diff --staged --quiet || git commit -m "Update board.svg and README"
-          git push origin HEAD
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add assets/board.svg README.md
-          git commit -m "Update board.svg and README"
-          git push origin HEAD
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "🚀 Realizando commit das alterações..."
+            git commit -m "Update board.svg and README [skip ci]"
+            git push origin main
+            echo "✅ Push realizado com sucesso!"
+          else
+            echo "🔄 Nenhuma alteração detectada - pulando commit"
+          fi
+          echo "Status final:"
+          git status
+          echo "Arquivos em assets/:"
+          ls -la assets/
