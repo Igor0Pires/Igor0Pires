@@ -65,7 +65,7 @@ jobs:
 
               with open("README.md", "a") as f:
                   f.write(f"## {USER} \n")
-                  f.write(f"![board](assets\board.svg) \n")              
+                  f.write(f"![board](assets/board.svg) \n")              
                   
           except ValueError as e:
               print(f"Invalid move: {e}")
