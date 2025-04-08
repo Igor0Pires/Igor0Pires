@@ -158,8 +158,10 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           mkdir -p assets
-          git add assets/board.svg README.md
+          git add assets/board.svg README.md damas_game/damas.pdn  # Added PDN file
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Update board.svg and README [skip ci]"
+            git commit -m "Update board, README, and game state [skip ci]"
             git push origin main
+          else
+            echo "No changes to commit."
           fi
