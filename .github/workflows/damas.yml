@@ -154,6 +154,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          mkdir -p assets
           git add assets/board.svg README.md
           if [ -n "$(git status --porcelain)" ]; then
             echo "🚀..."
@@ -165,5 +166,9 @@ jobs:
           fi
           echo "Status:"
           git status
-          echo "files in assets/:"
+          if [ -d "assets" ]; then
+            ls -la assets/
+          else
+            echo "Assets directory does not exist."
+          fi
           ls -la assets/
