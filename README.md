@@ -2,11 +2,12 @@
 Não está funcionando (ainda...)
 É a vez das brancas (listradas)
 ![board](assets/board.svg)
-[new game](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-new)
-[[9, 13]](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-move-[[9, 13]])
-[[10, 13]](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-move-[[10, 13]])
-[[10, 14]](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-move-[[10, 14]])
-[[11, 14]](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-move-[[11, 14]])
-[[11, 15]](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-move-[[11, 15]])
-[[12, 15]](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-move-[[12, 15]])
-[[12, 16]](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-move-[[12, 16]])
+| From | To |
+| a3 | [to_pos](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|move|a3-b4) |
+| c3 | [to_pos](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|move|c3-b4) |
+| c3 | [to_pos](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|move|c3-b4), [to_pos](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|move|c3-d4) |
+| e3 | [to_pos](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|move|e3-d4) |
+| e3 | [to_pos](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|move|e3-d4), [to_pos](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|move|e3-f4) |
+| g3 | [to_pos](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|move|g3-f4) |
+| g3 | [to_pos](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|move|g3-f4), [to_pos](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|move|g3-h4) |
+
