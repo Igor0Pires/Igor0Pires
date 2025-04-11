@@ -119,7 +119,7 @@ jobs:
                   elif winner == BLACK:
                       reaction = "-1"
                       new_comment_body = "Black won the game!\n\n"
-                  message += "[new game](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|new)"
+                  message += "[new game](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7new)"
           except Exception as e:
               print(f"Error verifying game status: {e}")
 
@@ -142,7 +142,7 @@ jobs:
                       from_pos, to_pos = move.split("-")
                       if from_pos not in from_dict:
                           from_dict[from_pos] = []
-                      from_dict[from_pos].append(f"[{to_pos}](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|move|{move})")
+                      from_dict[from_pos].append(f"[{to_pos}](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7move%7{move})")
                   for from_pos, to_pos in from_dict.items():
                       table_legal_moves += f"""| {from_pos} | {', '.join(to_pos)} |\n"""
                   
