@@ -78,28 +78,41 @@ jobs:
 
           def error_notification(repo_nwo, issue_num, reaction, new_comment_body, e=None):
               """
-              Handle errors by sending a notification to a GitHub issue.
-              Adds a comment to the issue, closes it, and logs the exception if provided.
+              Send error notification to the issue with a reaction and comment.
               """
               try:
+                  print(f"Attempting error notification for issue {issue_num}") 
+                  g = Github(auth=Auth.Token(TOKEN))
                   repo = g.get_repo(repo_nwo)
                   issue = repo.get_issue(number=issue_num)
+                  print(f"Retrieved issue successfully")
 
-                  # Add a reaction to the issue
-                  issue.create_reaction(reaction)
+                  # Try operations one by one with error handling
+                  try:
+                      issue.create_reaction(reaction)
+                      print("Reaction added successfully")
+                  except Exception as react_ex:
+                      print(f"Failed to add reaction: {react_ex}")
 
-                  # Add a comment to the issue
-                  issue.create_comment(new_comment_body)
+                  try:
+                      issue.create_comment(new_comment_body)
+                      print("Comment added successfully")
+                  except Exception as comment_ex:
+                      print(f"Failed to add comment: {comment_ex}")
 
-                  # Close the issue
-                  issue.edit(state="closed")
+                  try:
+                      issue.edit(state="closed")
+                      print("Issue closed successfully")
+                  except Exception as close_ex:
+                      print(f"Failed to close issue: {close_ex}")
 
-                  # Log the exception if provided
                   if e:
-                      print(f"Exception occurred: {e}")
+                      print(f"Original exception: {e}")
 
               except Exception as ex:
-                  print(f"Failed to handle error notification: {ex}")
+                  print(f"FATAL: Failed to handle error notification: {ex}")
+                  # At least print the intended message
+                  print(f"Intended message: {new_comment_body}")
 
           def new_game(game, user):
               """
