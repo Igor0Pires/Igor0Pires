@@ -142,9 +142,11 @@ jobs:
                       from_pos, to_pos = move.split("-")
                       if from_pos not in from_dict:
                           from_dict[from_pos] = []
-                      from_dict[from_pos].append(f"[to_pos](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|move|{move})")
-
-                      table_legal_moves += f"| {from_pos} | {', '.join(from_dict[from_pos])} |\n"
+                      from_dict[from_pos].append(f"[{to_pos}](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|move|{move})")
+                  for from_pos, to_pos in from_dict.items():
+                      table_legal_moves += f"""| {from_pos} | {', '.join(to_pos)} |\n"""
+                  
+                      
                       
 
                   new_readme = f"""## Torneio de Damas (BETA)\nNão está funcionando (ainda...)\nÉ a vez das brancas (listradas)\n![board](assets/board.svg)\n{table_legal_moves if len(trad_moves) > 0 else messages}\n"""
