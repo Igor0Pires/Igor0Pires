@@ -1,13 +1,14 @@
 ## Damas Tournament (BETA)
 
-It's Black's turn!
+It's White's turn!
 
-<img src="assets/board.svg?1744395713" alt="board" width="70%"/>
+<img src="assets/board.svg?1744396121" alt="board" width="70%"/>
 
 | From | To |
 | ---- | -- |
-| b6 | [a5](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Cb6-a5), [c5](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Cb6-c5) |
-| d6 | [c5](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Cd6-c5), [e5](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Cd6-e5) |
-| f6 | [e5](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Cf6-e5), [g5](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Cf6-g5) |
-| h6 | [g5](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Ch6-g5) |
+| b4 | [a5](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Cb4-a5) |
+| c3 | [d4](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Cc3-d4) |
+| e3 | [d4](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Ce3-d4), [f4](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Ce3-f4) |
+| g3 | [f4](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Cg3-f4), [h4](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Cg3-h4) |
+| b2 | [a3](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Cb2-a3) |
 
