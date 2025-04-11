@@ -149,11 +149,6 @@ jobs:
                   repo.update_file('README.md', 'Update README', new_readme, current_readme.sha, branch='main')
               except Exception as e:
                   print(f"Error updating README: {e}")
-
-          except KeyError as e:
-              print(f"Environment variable missing: {e}")
-          except Exception as e:
-              print(f"Unexpected error: {e}")
           EOF
 
       - name: Commit and push changes
