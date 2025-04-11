@@ -150,6 +150,11 @@ jobs:
                   repo.update_file('README.md', 'Update README', new_readme, current_readme.sha, branch='main')
               except Exception as e:
                   print(f"Error updating README: {e}")
+                  
+                  print("\n⏳ Final checks before README update:")
+                  print(f"Game type: {type(game)}")
+                  print(f"Game valid: {hasattr(game, 'legal_moves')}")
+                  print(f"Current moves: {list(game.legal_moves()) if hasattr(game, 'legal_moves') else 'N/A'}")
           EOF
 
       - name: Commit and push changes
