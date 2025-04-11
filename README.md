@@ -1,7 +1,7 @@
 ## Torneio de Damas (BETA)
 Não está funcionando (ainda...)
 É a vez das brancas (listradas)
-![board](assets/board.svg)
+<img src="assets/board.svg" alt="board" width="70%"/>
 | From | To |
 | ---- | -- |
 | b6 | [a5](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Cb6-a5), [c5](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7Cb6-c5) |
