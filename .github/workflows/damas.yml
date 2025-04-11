@@ -82,25 +82,38 @@ jobs:
               Adds a comment to the issue, closes it, and logs the exception if provided.
               """
               try:
-                  g = Github(auth=Auth.Token(TOKEN))
-                  repo = g.get_repo(repo_nwo)
-                  issue = repo.get_issue(number=issue_num)
-
-                  # Add a reaction to the issue
-                  issue.create_reaction(reaction)
-
-                  # Add a comment to the issue
-                  issue.create_comment(new_comment_body)
-
-                  # Close the issue
-                  issue.edit(state="closed")
-
-                  # Log the exception if provided
-                  if e:
-                      print(f"Exception occurred: {e}")
-
-              except Exception as ex:
-                  print(f"Failed to handle error notification: {ex}")
+                print(f"Attempting error notification for issue {issue_num}")  # Debug
+                g = Github(auth=Auth.Token(TOKEN))
+                repo = g.get_repo(repo_nwo)
+                issue = repo.get_issue(number=issue_num)
+                print(f"Retrieved issue successfully")  # Debug
+        
+                # Try operations one by one with error handling
+                try:
+                    issue.create_reaction(reaction)
+                    print("Reaction added successfully")
+                except Exception as react_ex:
+                    print(f"Failed to add reaction: {react_ex}")
+        
+                try:
+                    issue.create_comment(new_comment_body)
+                    print("Comment added successfully")
+                except Exception as comment_ex:
+                    print(f"Failed to add comment: {comment_ex}")
+        
+                try:
+                    issue.edit(state="closed")
+                    print("Issue closed successfully")
+                except Exception as close_ex:
+                    print(f"Failed to close issue: {close_ex}")
+        
+                if e:
+                    print(f"Original exception: {e}")
+        
+            except Exception as ex:
+                print(f"FATAL: Failed to handle error notification: {ex}")
+                # At least print the intended message
+                print(f"Intended message: {new_comment_body}")
 
           def new_game(game, user):
               """
@@ -114,6 +127,7 @@ jobs:
               file_content = repo.get_contents(GAME_DATA_PATH)
               game_content = base64.b64decode(file_content.content).decode("utf-8")
           except Exception as e:
+              print(f"Error reading game file: {e}")
               new_comment_body = f"Error reading game file: {e}"
               error_notification(REPO, ISSUE_NUMBER, "rocket", new_comment_body, e)
               game_content = ""
@@ -132,6 +146,7 @@ jobs:
               try:
                 game = new_game(game, USER)
               except Exception as e:
+                print(f"Error creating new game: {e}")
                 new_comment_body = f"Error creating new game: {e}"
                 error_notification(REPO, ISSUE_NUMBER, "rocket", new_comment_body, e)
 
@@ -146,6 +161,7 @@ jobs:
                   move = Move(game, pdn_move=DAMAS_USER_MOVE)
                   game.push(move)
               except Exception as e:
+                  print(f"Error processing move: {e}")
                   new_comment_body = f"Error processing move: {e}"
                   error_notification(REPO, ISSUE_NUMBER, "rocket", new_comment_body, e)
 
@@ -166,6 +182,7 @@ jobs:
                       new_comment_body = "Black won the game!\n\n"
                   message += "[new game](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cnew)"
           except Exception as e:
+              print(f"Error verifying game situation: {e}")
               new_comment_body = f"Error verifying game situation: {e}"
               error_notification(REPO, ISSUE_NUMBER, "rocket", new_comment_body, e)
 
