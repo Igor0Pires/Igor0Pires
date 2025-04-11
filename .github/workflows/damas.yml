@@ -152,7 +152,7 @@ jobs:
           # Verify situation of the game
           message = ""
           try:
-              player = "White" if game._game.whose_turn() == 1 else "Black"
+              player = "White" if game._game.whose_turn() == 2 else "Black"
               if game.is_over():
                   winner = game.winner()
                   if winner == WHITE:
