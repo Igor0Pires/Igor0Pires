@@ -7,13 +7,13 @@ on:
 jobs:
   move:
     runs-on: ubuntu-latest
-    if: startsWith(github.event.issue.title, 'damas-') 
+    if: startsWith(github.event.issue.title, 'damas|') 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - if: startsWith(github.event.issue.title, 'damas-') && contains(github.event.issue.labels.*.name, 'test')
+      - if: startsWith(github.event.issue.title, 'damas|') && contains(github.event.issue.labels.*.name, 'test')
         run: |
           echo "${{ github.event_name }}"
           exit 1
@@ -48,6 +48,7 @@ jobs:
           from github import Auth 
           from draughts import Board, Move, svg, WHITE, BLACK
           from draughts.PDN import PDNReader, PDNWriter
+          from draughts.convert import _number_to_algebraic
           import os
           import base64
 
@@ -57,9 +58,9 @@ jobs:
           ISSUE_NUMBER = os.environ["ISSUE_NUMBER"]
           DAMAS_GAME_TITLE = os.environ["GITHUB_EVENT_ISSUE_TITLE"]
 
-          title_split = DAMAS_GAME_TITLE.split('-')
+          title_split = DAMAS_GAME_TITLE.split('|')
           if len(title_split) < 2:
-              raise ValueError("Issue title must contain at least two parts separated by '-'")
+              raise ValueError("Issue title must contain at least two parts separated by '|'")
           
           DAMAS_GAME_NUM = title_split[3] if len(title_split) > 3 else ISSUE_NUMBER
           DAMAS_GAME_CMD = title_split[1]
@@ -72,7 +73,7 @@ jobs:
           g = Github(auth=Auth.Token(TOKEN))
           repo = g.get_repo(REPO)
 
-          game = None
+          game = Board(variant="brazilian")
 
           try:
               file_content = repo.get_contents(GAME_DATA_PATH)
@@ -80,10 +81,13 @@ jobs:
           except Exception as e:
               print(f"Error fetching game data: {e}")
               game_content = ""
+              
 
           if DAMAS_GAME_CMD == "new":
               try:
-                  game = Board(variant="brazilian")
+                  if game_content:
+                      with open(GAME_DATA_PATH, "w") as file:
+                          file.write("")
               except Exception as e:
                   print(f"Error creating a new game: {e}")
 
@@ -91,14 +95,18 @@ jobs:
               try:
                   with open(TMP_FILE, "w") as f:
                       f.write(game_content)
-                  game = PDNReader(filename=TMP_FILE).games[0]
-                  print(game)
+                  moves = PDNReader(filename=TMP_FILE).games[0].moves
+                  
+                  for move in moves:
+                      move = Move(game, pdn_move=move)
+                      game.push(move)
                   move = Move(game, pdn_move=DAMAS_USER_MOVE)
                   game.push(move)
               except Exception as e:
                   print(f"Error processing move: {e}")
 
           # Verify situation of the game
+          message = ""
           try:
               if game.is_over():
                   winner = game.winner()
@@ -111,7 +119,7 @@ jobs:
                   elif winner == BLACK:
                       reaction = "-1"
                       new_comment_body = "Black won the game!\n\n"
-                  message = "[new game](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-&body=descricao)"
+                  message += "[new game](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|new)"
           except Exception as e:
               print(f"Error verifying game status: {e}")
 
@@ -126,26 +134,26 @@ jobs:
                   with open("assets/board.svg", "w") as file:
                       file.write(svg_content)
 
-                  message = "[new game](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-new)"
                   moves = game.legal_moves()
-                  trad_moves = list(map(lambda x: x.board_move, moves))
-                  print(f"Moves: {trad_moves}")
-
+                  trad_moves = list(map(lambda x:  _number_to_algebraic(x.pdn_move, variant="brazilian"), moves))
+                  table_legal_moves = f"""| From | To |\n"""
+                  from = {}
                   for move in trad_moves:
-                      message += f"\n{move}(https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-move-{move})"
+                      from_pos, to_pos = move.split("-")
+                      if from_pos not in from:
+                          from[from_pos] = []
+                      from[from_pos].append(f"[to_pos](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas|move|{move})")
 
-                  new_readme = f"""## Torneio de Damas (BETA)\nNão está funcionando (ainda...)\nÉ a vez das brancas (listradas)\n![board](assets/board.svg)\n{message}"""
+                      table_legal_moves += f"| {from_pos} | {', '.join(from[from_pos])} |\n"
+                      
+
+                  new_readme = f"""## Torneio de Damas (BETA)\nNão está funcionando (ainda...)\nÉ a vez das brancas (listradas)\n![board](assets/board.svg)\n{table_legal_moves if len(trad_moves) > 0 else messages}\n"""
 
                   current_readme = repo.get_contents('README.md')
 
                   repo.update_file('README.md', 'Update README', new_readme, current_readme.sha, branch='main')
               except Exception as e:
                   print(f"Error updating README: {e}")
-
-              print("\n⏳ Final checks before README update:")
-              print(f"Game type: {type(game)}")
-              print(f"Game valid: {hasattr(game, 'legal_moves')}")
-              print(f"Current moves: {list(game.legal_moves()) if hasattr(game, 'legal_moves') else 'N/A'}")
           EOF
 
       - name: Commit and push changes
