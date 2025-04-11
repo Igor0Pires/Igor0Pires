@@ -49,6 +49,7 @@ jobs:
           from draughts import Board, Move, svg, WHITE, BLACK
           from draughts.PDN import PDNReader, PDNWriter
           from draughts.convert import _number_to_algebraic
+          import time
           import os
           import base64
 
@@ -209,8 +210,10 @@ jobs:
                       from_dict[from_pos].append(f"[{to_pos}](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cmove%7C{move})")
                   for from_pos, to_pos in from_dict.items():
                       table_legal_moves += f"""| {from_pos} | {', '.join(to_pos)} |\n"""
-                  print(REPO)
-                  new_readme = f"""## Damas Tournament (BETA)\n\nIt's {player}'s turn!\n\n<img src="https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/{REPO}/assets/board.svg" alt="board" width="70%"/>\n\n{table_legal_moves if len(trad_moves) > 0 else messages}\n"""
+                      
+                  timestamp = int(time.time())
+                  print(timestamp)
+                  new_readme = f"""## Damas Tournament (BETA)\n\nIt's {player}'s turn!\n\n<img src="https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/{timestamp}/assets/board.svg" alt="board" width="70%"/>\n\n{table_legal_moves if len(trad_moves) > 0 else messages}\n"""
 
                   current_readme = repo.get_contents('README.md')
 
