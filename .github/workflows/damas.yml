@@ -78,47 +78,35 @@ jobs:
 
           def error_notification(repo_nwo, issue_num, reaction, new_comment_body, e=None):
               """
-              Send error notification to the issue with a reaction and comment.
+              Handle errors by sending a notification to a GitHub issue.
+              Adds a comment to the issue, closes it, and logs the exception if provided.
               """
               try:
-                  print(f"Attempting error notification for issue {issue_num}") 
                   g = Github(auth=Auth.Token(TOKEN))
                   repo = g.get_repo(repo_nwo)
                   issue = repo.get_issue(number=issue_num)
-                  print(f"Retrieved issue successfully")
 
-                  # Try operations one by one with error handling
-                  try:
-                      issue.create_reaction(reaction)
-                      print("Reaction added successfully")
-                  except Exception as react_ex:
-                      print(f"Failed to add reaction: {react_ex}")
+                  # Add a reaction to the issue
+                  issue.create_reaction(reaction)
 
-                  try:
-                      issue.create_comment(new_comment_body)
-                      print("Comment added successfully")
-                  except Exception as comment_ex:
-                      print(f"Failed to add comment: {comment_ex}")
+                  # Add a comment to the issue
+                  issue.create_comment(new_comment_body)
 
-                  try:
-                      issue.edit(state="closed")
-                      print("Issue closed successfully")
-                  except Exception as close_ex:
-                      print(f"Failed to close issue: {close_ex}")
+                  # Close the issue
+                  issue.edit(state="closed")
 
+                  # Log the exception if provided
                   if e:
-                      print(f"Original exception: {e}")
+                      print(f"Exception occurred: {e}")
 
               except Exception as ex:
-                  print(f"FATAL: Failed to handle error notification: {ex}")
-                  # At least print the intended message
-                  print(f"Intended message: {new_comment_body}")
+                  print(f"Failed to handle error notification: {ex}")
 
           def new_game(game, user):
               """
               Create a new game and reset the board.
               """
-              if game.is_over() or user == Igor0Pires:
+              if game.is_over() or user == "Igor0Pires":
                   game = Board(variant="brazilian") 
               return game
 
@@ -126,7 +114,7 @@ jobs:
               file_content = repo.get_contents(GAME_DATA_PATH)
               game_content = base64.b64decode(file_content.content).decode("utf-8")
           except Exception as e:
-              new_comment_body = "Error reading game file: {e}"
+              new_comment_body = f"Error reading game file: {e}"
               error_notification(REPO, ISSUE_NUMBER, "rocket", new_comment_body, e)
               game_content = ""
           
@@ -144,7 +132,7 @@ jobs:
               try:
                 game = new_game(game, USER)
               except Exception as e:
-                new_comment_body = "Error creating new game: {e}"
+                new_comment_body = f"Error creating new game: {e}"
                 error_notification(REPO, ISSUE_NUMBER, "rocket", new_comment_body, e)
 
           elif DAMAS_GAME_CMD == "move":
@@ -158,7 +146,7 @@ jobs:
                   move = Move(game, pdn_move=DAMAS_USER_MOVE)
                   game.push(move)
               except Exception as e:
-                  new_comment_body = "Error processing move: {e}"
+                  new_comment_body = f"Error processing move: {e}"
                   error_notification(REPO, ISSUE_NUMBER, "rocket", new_comment_body, e)
 
           # Verify situation of the game
@@ -178,7 +166,7 @@ jobs:
                       new_comment_body = "Black won the game!\n\n"
                   message += "[new game](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cnew)"
           except Exception as e:
-              new_comment_body = "Error verifying game situation: {e}"
+              new_comment_body = f"Error verifying game situation: {e}"
               error_notification(REPO, ISSUE_NUMBER, "rocket", new_comment_body, e)
 
           # Update README
@@ -210,7 +198,7 @@ jobs:
 
                   repo.update_file('README.md', 'Update README', new_readme, current_readme.sha, branch='main')
               except Exception as e:
-                  new_comment_body = "Error updating README: {e}"
+                  new_comment_body = f"Error updating README: {e}"
                   error_notification(REPO, ISSUE_NUMBER, "rocket", new_comment_body, e)
           EOF
 
