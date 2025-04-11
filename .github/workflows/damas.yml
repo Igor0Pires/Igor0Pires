@@ -110,10 +110,10 @@ jobs:
                 if e:
                     print(f"Original exception: {e}")
         
-            except Exception as ex:
-                print(f"FATAL: Failed to handle error notification: {ex}")
-                # At least print the intended message
-                print(f"Intended message: {new_comment_body}")
+              except Exception as ex:
+                  print(f"FATAL: Failed to handle error notification: {ex}")
+                  # At least print the intended message
+                  print(f"Intended message: {new_comment_body}")
 
           def new_game(game, user):
               """
