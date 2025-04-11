@@ -61,10 +61,10 @@ jobs:
           if len(title_split) < 2:
               raise ValueError("Issue title must contain at least two parts separated by '-'")
           
-          print(len(title_split))
           DAMAS_GAME_NUM = title_split[3] if len(title_split) > 3 else ISSUE_NUMBER
           DAMAS_GAME_CMD = title_split[1]
           DAMAS_USER_MOVE = title_split[2] if len(title_split) > 2 else ""
+          print(DAMAS_GAME_CMD, DAMAS_USER_MOVE, DAMAS_GAME_NUM)
 
           GAME_DATA_PATH = "damas_game/damas.pdn"
           TMP_FILE = "/tmp/damas.pdn"
@@ -83,8 +83,6 @@ jobs:
 
           if DAMAS_GAME_CMD == "new":
               try:
-                  if game_content:
-                      repo.delete_file(GAME_DATA_PATH, "Deleting game file", file_content.sha, branch="main")
                   game = Board(variant="brazilian")
               except Exception as e:
                   print(f"Error creating a new game: {e}")
