@@ -137,7 +137,7 @@ jobs:
                   moves = game.legal_moves()
                   trad_moves = list(map(lambda x:  _number_to_algebraic(x.pdn_move, variant="brazilian"), moves))
                   table_legal_moves = f"""| From | To |\n"""
-                  from = {}
+                  from = dict()
                   for move in trad_moves:
                       from_pos, to_pos = move.split("-")
                       if from_pos not in from:
