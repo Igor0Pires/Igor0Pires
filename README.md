@@ -1,7 +1,7 @@
 ## Damas Tournament (BETA)
 Not working (yet...)
 
-It's Black's turn!
+It's White's turn!
 
 <img src="assets/board.svg" alt="board" width="70%"/>
 
