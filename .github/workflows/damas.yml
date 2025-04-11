@@ -132,7 +132,7 @@ jobs:
                   print(f"Moves: {trad_moves}")
 
                   for move in trad_moves:
-                      message += f"\n{move}(https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-move-{move.pdn_move})"
+                      message += f"\n{move}(https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-move-{move})"
 
                   new_readme = f"""## Torneio de Damas (BETA)\nNão está funcionando (ainda...)\nÉ a vez das brancas (listradas)\n![board](assets/board.svg)\n{message}"""
 
