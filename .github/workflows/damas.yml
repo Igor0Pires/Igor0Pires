@@ -64,11 +64,7 @@ jobs:
           DAMAS_GAME_NUM = title_split[3] if len(title_split) > 3 else ISSUE_NUMBER
           DAMAS_GAME_CMD = title_split[1]
           DAMAS_USER_MOVE = title_split[2] if len(title_split) > 2 else ""
-          print(f'''
-          DAMAS_GAME_NUM: {DAMAS_GAME_NUM}
-          DAMAS_GAME_CMD: {DAMAS_GAME_CMD}
-          DAMAS_USER_MOVE: {DAMAS_USER_MOVE}
-          ''')
+
 
           GAME_DATA_PATH = "damas_game/damas.pdn"
           TMP_FILE = "/tmp/damas.pdn"
@@ -96,6 +92,7 @@ jobs:
                   with open(TMP_FILE, "w") as f:
                       f.write(game_content)
                   game = PDNReader(filename=TMP_FILE).games[0]
+                  print(game)
                   move = Move(game, pdn_move=DAMAS_USER_MOVE)
                   game.push(move)
               except Exception as e:
@@ -132,6 +129,7 @@ jobs:
                   message = "[new game](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-new&body=)"
                   moves = game.legal_moves()
                   trad_moves = list(map(lambda x: x.board_move, moves))
+                  print(f"Moves: {trad_moves}")
 
                   for move in trad_moves:
                       message += f"\n- [{move}](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-move-{move}&body=)"
