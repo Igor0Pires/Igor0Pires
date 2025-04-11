@@ -126,7 +126,7 @@ jobs:
                   with open("assets/board.svg", "w") as file:
                       file.write(svg_content)
 
-                  message = "[new game](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-new&body=)"
+                  message = "[new game](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas-new)"
                   moves = game.legal_moves()
                   trad_moves = list(map(lambda x: x.board_move, moves))
                   print(f"Moves: {trad_moves}")
