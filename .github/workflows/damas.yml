@@ -66,44 +66,88 @@ jobs:
           DAMAS_GAME_CMD = title_split[1]
           DAMAS_USER_MOVE = title_split[2] if len(title_split) > 2 else ""
 
-
           GAME_DATA_PATH = "damas_game/damas.pdn"
           TMP_FILE = "/tmp/damas.pdn"
+          
+
 
           g = Github(auth=Auth.Token(TOKEN))
           repo = g.get_repo(REPO)
 
           game = Board(variant="brazilian")
 
+          def error_notification(repo_nwo, issue_num, reaction, new_comment_body, e=None):
+              """
+              Handle errors by sending a notification to a GitHub issue.
+              Adds a comment to the issue, closes it, and logs the exception if provided.
+              """
+              try:
+                  g = Github(TOKEN)
+                  repo = g.get_repo(repo_nwo)
+                  issue = repo.get_issue(number=issue_num)
+
+                  # Add a reaction to the issue
+                  issue.create_reaction(reaction)
+
+                  # Add a comment to the issue
+                  issue.create_comment(new_comment_body)
+
+                  # Close the issue
+                  issue.edit(state="closed")
+
+                  # Log the exception if provided
+                  if e:
+                      print(f"Exception occurred: {e}")
+
+              except Exception as ex:
+                  print(f"Failed to handle error notification: {ex}")
+
+          def new_game(game, user):
+              """
+              Create a new game and reset the board.
+              """
+              if game.is_over() or user == Igor0Pires:
+                  game = Board(variant="brazilian") 
+              return game
+
           try:
               file_content = repo.get_contents(GAME_DATA_PATH)
               game_content = base64.b64decode(file_content.content).decode("utf-8")
           except Exception as e:
-              print(f"Error fetching game data: {e}")
+              new_comment_body = "Error reading game file: {e}"
+              error_notification(REPO, ISSUE_NUMBER, "rocket", new_comment_body, e)
               game_content = ""
+          
+          if game_content:
+              with open(TMP_FILE, "w") as f:
+                  f.write(game_content)
+              moves = PDNReader(filename=TMP_FILE).games[0].moves
+              
+              for move in moves:
+                  move = Move(game, pdn_move=move)
+                  game.push(move)
               
 
           if DAMAS_GAME_CMD == "new":
               try:
-                  if game_content:
-                      with open(GAME_DATA_PATH, "w") as file:
-                          file.write("")
+                game = new_game(game, USER)
               except Exception as e:
-                  print(f"Error creating a new game: {e}")
+                new_comment_body = "Error creating new game: {e}"
+                error_notification(REPO, ISSUE_NUMBER, "rocket", new_comment_body, e)
 
           elif DAMAS_GAME_CMD == "move":
               try:
-                  with open(TMP_FILE, "w") as f:
-                      f.write(game_content)
-                  moves = PDNReader(filename=TMP_FILE).games[0].moves
-                  
-                  for move in moves:
-                      move = Move(game, pdn_move=move)
-                      game.push(move)
+                  issues = repo.get_issues(state="open", sort="created", direction="desc")
+                  if DAMAS_USER_MOVE == "":
+                      raise ValueError("User move is required for 'move' command")
+                  if issues[1].user.login == USER and issues[1].title.split("|")[1] == DAMAS_USER_CMD:
+                      raise ValueError("Chill out, you already played your turn")
+
                   move = Move(game, pdn_move=DAMAS_USER_MOVE)
                   game.push(move)
               except Exception as e:
-                  print(f"Error processing move: {e}")
+                  new_comment_body = "Error processing move: {e}"
+                  error_notification(REPO, ISSUE_NUMBER, "rocket", new_comment_body, e)
 
           # Verify situation of the game
           message = ""
@@ -122,7 +166,8 @@ jobs:
                       new_comment_body = "Black won the game!\n\n"
                   message += "[new game](https://github.com/Igor0Pires/Igor0Pires/issues/new?title=damas%7Cnew)"
           except Exception as e:
-              print(f"Error verifying game status: {e}")
+              new_comment_body = "Error verifying game situation: {e}"
+              error_notification(REPO, ISSUE_NUMBER, "rocket", new_comment_body, e)
 
           # Update README
           if game is not None:
@@ -156,7 +201,8 @@ jobs:
 
                   repo.update_file('README.md', 'Update README', new_readme, current_readme.sha, branch='main')
               except Exception as e:
-                  print(f"Error updating README: {e}")
+                  new_comment_body = "Error updating README: {e}"
+                  error_notification(REPO, ISSUE_NUMBER, "rocket", new_comment_body, e)
           EOF
 
       - name: Commit and push changes
