@@ -108,6 +108,7 @@ jobs:
           # Verify situation of the game
           message = ""
           try:
+              player = "White" if game._game.whose_turn() == 1 else "Black"
               if game.is_over():
                   winner = game.winner()
                   if winner == WHITE:
@@ -149,7 +150,7 @@ jobs:
                       
                       
 
-                  new_readme = f"""## Torneio de Damas (BETA)\nNão está funcionando (ainda...)\nÉ a vez das brancas (listradas)\n![board](assets/board.svg)\n{table_legal_moves if len(trad_moves) > 0 else messages}\n"""
+                    new_readme = f"""## Damas Tournament (BETA)\nNot working (yet...)\nIt's {player}'s turn\n!<img src="assets/board.svg" alt="board" width="70%"/>\n{table_legal_moves if len(trad_moves) > 0 else messages}\n"""
 
                   current_readme = repo.get_contents('README.md')
 
