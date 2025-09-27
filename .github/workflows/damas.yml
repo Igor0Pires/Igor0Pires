@@ -196,7 +196,7 @@ jobs:
                   PDNWriter(filename=GAME_DATA_PATH, board=game)
 
                   # ------------------------------- Generate Board
-                  table_content = "|   | A | B | C | D | E | F | G | H |\n| - | - | - | - | - | - | - | - | - |\n"
+                  table_content = ""
                   str_representation = list(map(lambda row_str: row_str.split("|"), filter(lambda row_str: "|" in row_str, str(game).split("\n"))))
                   width = len(str_representation[0])
                   height = len(str_representation)
@@ -209,6 +209,7 @@ jobs:
                         else:
                             table_content += "|   "  # Empty square
                     table_content += "|\n"
+                  table_content += "| - | - | - | - | - | - | - | - | - |\n|   | a | b | c | d | e | f | g | h |\n"
 
                   svg_content = svg.create_svg(game)
                   with open("assets/board.svg", "w") as file:
