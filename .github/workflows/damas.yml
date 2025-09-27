@@ -196,7 +196,7 @@ jobs:
                   PDNWriter(filename=GAME_DATA_PATH, board=game)
 
                   # ------------------------------- Generate Board
-                  table_content = ""
+                  table_content = "|   | a | b | c | d | e | f | g | h |\n| - | - | - | - | - | - | - | - | - |\n| "
                   str_representation = list(map(lambda row_str: row_str.split("|"), filter(lambda row_str: "|" in row_str, str(game).split("\n"))))
                   width = len(str_representation[0])
                   height = len(str_representation)

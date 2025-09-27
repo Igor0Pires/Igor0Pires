@@ -1,6 +1,8 @@
 ## Damas Tournament (BETA)
 
 It's Black's turn!
+|   | ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/b.png) | b | c | d | e | f | g | h |
+| - | - | - | - | - | - | - | - | - |
 | 8 |   | b |   | b |   | b |   | b |
 | 7 | b |   | b |   | b |   | b |   |
 | 6 |   | b |   | b |   | b |   | b |
@@ -9,7 +11,6 @@ It's Black's turn!
 | 3 |   |   | w |   | w |   | w |   |
 | 2 |   | w |   | w |   | w |   | w |
 | 1 | w |   | w |   | w |   | w |   |
-| - | - | - | - | - | - | - | - | - |
 |   | a | b | c | d | e | f | g | h |
 
 | From | To |
