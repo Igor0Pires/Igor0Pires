@@ -196,7 +196,7 @@ jobs:
                   PDNWriter(filename=GAME_DATA_PATH, board=game)
 
                   # ------------------------------- Generate Board
-                  table_content = "|   | a | b | c | d | e | f | g | h |\n| - | - | - | - | - | - | - | - | - |\n| "
+                  table_content = "|   | a | b | c | d | e | f | g | h |\n| - | - | - | - | - | - | - | - | - |\n "
                   str_representation = list(map(lambda row_str: row_str.split("|"), filter(lambda row_str: "|" in row_str, str(game).split("\n"))))
                   width = len(str_representation[0])
                   height = len(str_representation)
@@ -204,12 +204,17 @@ jobs:
                     table_content += f"| {height - r} "
                     for c in range(width):
                         piece = str_representation[r][c].strip()
-                        if piece:
-                            table_content += f"| {piece} " # Add piece to the table
+                        if piece == "b":
+                            table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/b.png) " 
+                        elif piece == "rb":
+                            table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/rb.png) " 
+                        elif piece == "w":
+                            table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/w.png) " 
+                        elif piece == "rw":
+                            table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/rw.png) "
                         else:
-                            table_content += "|   "  # Empty square
+                            table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/blank.png) "  # Empty square
                     table_content += "|\n"
-                  table_content += "| - | - | - | - | - | - | - | - | - |\n|   | a | b | c | d | e | f | g | h |\n"
 
                   svg_content = svg.create_svg(game)
                   with open("assets/board.svg", "w") as file:
@@ -233,7 +238,7 @@ jobs:
 
                   # Update README
 
-                  new_readme = f"""## Damas Tournament (BETA)\n\nIt's {player}'s turn!\n{table_content}\n{table_legal_moves if len(trad_moves) > 0 else messages}\n"""
+                  new_readme = f"""## Damas Tournament\n\nIt's {player}'s turn!\n{table_content}\n{table_legal_moves if len(trad_moves) > 0 else messages}\n"""
 
                   current_readme = repo.get_contents('README.md')
 
