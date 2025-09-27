@@ -195,10 +195,26 @@ jobs:
                       file.write("")
                   PDNWriter(filename=GAME_DATA_PATH, board=game)
 
+                  # ------------------------------- Generate Board
+                  table_content = "|   | A | B | C | D | E | F | G | H |\n| - | - | - | - | - | - | - | - | - |\n"
+                  str_representation = list(map(lambda row_str: row_str.strip().split("|"), filter(lambda row_str: "|" in row_str, str(game).split("\n"))))
+                  width = len(str_representation[0])
+                  height = len(str_representation)
+                  for r in range(height):
+                    table_content += f"| {height - r} "
+                    for c in range(width):
+                        piece = str_representation[r][c].strip()
+                        if piece:
+                            table_content += f"| {piece} " # Add piece to the table
+                        else:
+                            table_content += "|   "  # Empty square
+                        table_content += "|\n"
+
                   svg_content = svg.create_svg(game)
                   with open("assets/board.svg", "w") as file:
                       file.write(svg_content)
 
+                # -------------------------------
                   moves = game.legal_moves()
                   trad_moves = list(map(lambda x:  _number_to_algebraic(x.pdn_move, variant="brazilian"), moves))
                   table_legal_moves = f"""| From | To |\n| ---- | -- |\n"""
@@ -213,7 +229,10 @@ jobs:
                   
                   timestamp = int(time.time())
                   print(timestamp)
-                  new_readme = f"""## Damas Tournament (BETA)\n\nIt's {player}'s turn!\n\n<img src="assets/board.svg?{timestamp}" alt="board" width="70%"/>\n\n{table_legal_moves if len(trad_moves) > 0 else messages}\n"""
+
+                  # Update README
+
+                  new_readme = f"""## Damas Tournament (BETA)\n\nIt's {player}'s turn!\n\n{table_content}\n\n{table_legal_moves if len(trad_moves) > 0 else messages}\n"""
 
                   current_readme = repo.get_contents('README.md')
 
