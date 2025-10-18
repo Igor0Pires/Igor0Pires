@@ -156,9 +156,9 @@ jobs:
                   issues = repo.get_issues(state="open", sort="created", direction="desc")
                   if DAMAS_USER_MOVE == "":
                       raise ValueError("User move is required for 'move' command")
-                  if USER != "Igor0Pires":
-                      if issues[1].user.login == USER and issues[1].title.split("|")[1] == DAMAS_GAME_CMD:
-                          raise ValueError("Chill out, you already played your turn")
+                #   if USER != "Igor0Pires":
+                #       if issues[1].user.login == USER and issues[1].title.split("|")[1] == DAMAS_GAME_CMD:
+                #           raise ValueError("Chill out, you already played your turn")
 
                   move = Move(game, pdn_move=DAMAS_USER_MOVE)
                   game.push(move)
