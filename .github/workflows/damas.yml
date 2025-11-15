@@ -277,7 +277,7 @@ jobs:
 
           TOKEN = os.environ["GITHUB_TOKEN"]
           REPO = os.environ["REPOSITORY"]
-          ISSUE_NUMBER = os.environ["ISSUE_NUMBER"]
+          ISSUE_NUMBER = int(os.environ["ISSUE_NUMBER"])
 
           g = Github(auth=Auth.Token(TOKEN))
           repo = g.get_repo(REPO)
