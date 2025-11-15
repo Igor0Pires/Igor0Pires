@@ -80,14 +80,13 @@
 <rect x="216" y="296" width="40" height="40" fill="#E8D0AA"/>
 <rect x="256" y="296" width="40" height="40" fill="#B87C4C"/>
 <rect x="296" y="296" width="40" height="40" fill="#E8D0AA"/>
-<circle cx="276" cy="156" r="16.0" fill="#000000" stroke="#FFFFFF" stroke-width="2"/>
+<circle cx="156" cy="276" r="16.0" fill="#000000" stroke="#FFFFFF" stroke-width="2"/>
 <defs>
-    <linearGradient id="crown_gradient_276_156" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="crown_gradient_156_276" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
         <stop offset="50%" style="stop-color:#FFA500;stop-opacity:1" />
         <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
     </linearGradient>
 </defs>
-<path d="M 276.0,148.0 L 277.7962717310058,153.52764406519017 L 283.60845213036123,153.52786404500043 L 278.906428713798,156.94435593480983 L 280.70228201833976,162.47213595499957 L 276.0,159.056 L 271.29771798166024,162.47213595499957 L 273.093571286202,156.94435593480983 L 268.39154786963877,153.52786404500043 L 274.2037282689942,153.52764406519017 Z" fill="url(#crown_gradient_276_156)" stroke="#DAA520" stroke-width="2"/>
-<circle cx="196" cy="236" r="16.0" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<path d="M 156.0,268.0 L 157.7962717310058,273.52764406519015 L 163.60845213036123,273.5278640450004 L 158.906428713798,276.94435593480983 L 160.7022820183398,282.4721359549996 L 156.0,279.056 L 151.2977179816602,282.4721359549996 L 153.093571286202,276.94435593480983 L 148.39154786963877,273.5278640450004 L 154.2037282689942,273.52764406519015 Z" fill="url(#crown_gradient_156_276)" stroke="#DAA520" stroke-width="2"/>
 </svg>
