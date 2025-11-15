@@ -82,18 +82,9 @@
 <rect x="296" y="296" width="40" height="40" fill="#E8D0AA"/>
 <circle cx="236" cy="36" r="16.0" fill="#000000" stroke="#FFFFFF" stroke-width="2"/>
 <circle cx="316" cy="36" r="16.0" fill="#000000" stroke="#FFFFFF" stroke-width="2"/>
-<circle cx="36" cy="76" r="16.0" fill="#000000" stroke="#FFFFFF" stroke-width="2"/>
 <circle cx="276" cy="76" r="16.0" fill="#000000" stroke="#FFFFFF" stroke-width="2"/>
-<circle cx="76" cy="116" r="16.0" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
-<defs>
-    <linearGradient id="crown_gradient_76_116" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
-        <stop offset="50%" style="stop-color:#FFA500;stop-opacity:1" />
-        <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
-    </linearGradient>
-</defs>
-<path d="M 76.0,108.0 L 77.7962717310058,113.52764406519016 L 83.60845213036123,113.52786404500043 L 78.906428713798,116.94435593480983 L 80.70228201833979,122.47213595499957 L 76.0,119.056 L 71.29771798166021,122.47213595499957 L 73.093571286202,116.94435593480983 L 68.39154786963877,113.52786404500043 L 74.2037282689942,113.52764406519016 Z" fill="url(#crown_gradient_76_116)" stroke="#DAA520" stroke-width="2"/>
 <circle cx="316" cy="116" r="16.0" fill="#000000" stroke="#FFFFFF" stroke-width="2"/>
+<circle cx="116" cy="156" r="16.0" fill="#000000" stroke="#FFFFFF" stroke-width="2"/>
 <circle cx="196" cy="236" r="16.0" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
 <circle cx="276" cy="236" r="16.0" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
 <circle cx="236" cy="276" r="16.0" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
