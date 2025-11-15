@@ -207,11 +207,11 @@ jobs:
                         if piece == "b":
                             table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/b.png) " 
                         elif piece == "rb":
-                            table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/rb.png) " 
+                            table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/kb.png) " 
                         elif piece == "w":
                             table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/w.png) " 
                         elif piece == "rw":
-                            table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/rw.png) "
+                            table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/kw.png) "
                         else:
                             table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/blank.png) "  # Empty square
                     table_content += "|\n"
