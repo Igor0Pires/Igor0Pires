@@ -92,9 +92,9 @@
 <path d="M 236.0,188.0 L 237.7962717310058,193.52764406519017 L 243.60845213036123,193.52786404500043 L 238.906428713798,196.94435593480983 L 240.7022820183398,202.47213595499957 L 236.0,199.056 L 231.2977179816602,202.47213595499957 L 233.093571286202,196.94435593480983 L 228.39154786963877,193.52786404500043 L 234.2037282689942,193.52764406519017 Z" fill="url(#crown_gradient_236_196)" stroke="#DAA520" stroke-width="2"/>
 <circle cx="36" cy="236" r="16.0" fill="#000000" stroke="#FFFFFF" stroke-width="2"/>
 <circle cx="276" cy="236" r="16.0" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<circle cx="156" cy="276" r="16.0" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
 <circle cx="236" cy="276" r="16.0" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
 <circle cx="316" cy="276" r="16.0" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
 <circle cx="116" cy="316" r="16.0" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
-<circle cx="196" cy="316" r="16.0" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
 <circle cx="276" cy="316" r="16.0" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
 </svg>
