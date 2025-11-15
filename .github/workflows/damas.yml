@@ -270,17 +270,17 @@ jobs:
           REPOSITORY: ${{ env.REPOSITORY }}
           ISSUE_NUMBER: ${{ env.ISSUE_NUMBER }}
         run: |
-            python << 'EOF'
-            from github import Github
-            from github import Auth 
-            import os
+          python << 'EOF'
+          from github import Github
+          from github import Auth 
+          import os
 
-            TOKEN = os.environ["GITHUB_TOKEN"]
-            REPO = os.environ["REPOSITORY"]
-            ISSUE_NUMBER = os.environ["ISSUE_NUMBER"]
+          TOKEN = os.environ["GITHUB_TOKEN"]
+          REPO = os.environ["REPOSITORY"]
+          ISSUE_NUMBER = os.environ["ISSUE_NUMBER"]
 
-            g = Github(auth=Auth.Token(TOKEN))
-            repo = g.get_repo(REPO)
-            issue = repo.get_issue(number=ISSUE_NUMBER)
-            issue.edit(state="closed")
-            EOF
+          g = Github(auth=Auth.Token(TOKEN))
+          repo = g.get_repo(REPO)
+          issue = repo.get_issue(number=ISSUE_NUMBER)
+          issue.edit(state="closed")
+          EOF
