@@ -206,11 +206,11 @@ jobs:
                         piece = str_representation[r][c].strip()
                         if piece == "b":
                             table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/b.png) " 
-                        elif piece == "rb":
+                        elif piece == "B":
                             table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/kb.png) " 
                         elif piece == "w":
                             table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/w.png) " 
-                        elif piece == "rw":
+                        elif piece == "W":
                             table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/kw.png) "
                         else:
                             table_content += "| ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/blank.png) "  # Empty square
@@ -263,3 +263,24 @@ jobs:
           else
             echo "No changes to commit."
           fi
+
+      - name: Close issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ env.REPOSITORY }}
+          ISSUE_NUMBER: ${{ env.ISSUE_NUMBER }}
+        run: |
+            python << 'EOF'
+            from github import Github
+            from github import Auth 
+            import os
+
+            TOKEN = os.environ["GITHUB_TOKEN"]
+            REPO = os.environ["REPOSITORY"]
+            ISSUE_NUMBER = os.environ["ISSUE_NUMBER"]
+
+            g = Github(auth=Auth.Token(TOKEN))
+            repo = g.get_repo(REPO)
+            issue = repo.get_issue(number=ISSUE_NUMBER)
+            issue.edit(state="closed")
+            EOF
