@@ -238,13 +238,7 @@ jobs:
 
                   # Update README
 
-                  new_readme = f"""## Damas Tournament\n\nIt's your turn !\n{table_content}\n{f"Choose Your Move\n\n ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/{'b' if player == 'Black' else 'w'}.png)\n " + table_legal_moves if len(trad_moves) > 0 else message}\n                  how to play:
-                  - Click on a move link above to open a new issue
-                  - Do not modify the issue title or description
-                  - Simply click the "Submit" button to create the issue
-                  - The game will automatically process your move
-                  \n
-                  inspired in chess game by [timburgan](https://github.com/timburgan/timburgan)"""
+                  new_readme = f"""## Damas Tournament\n\n{table_content}\n{f"### **It's your turn ! Choose Your Move** :rocket: \n\n ![](https://raw.githubusercontent.com/Igor0Pires/Igor0Pires/refs/heads/main/assets/{'b' if player == 'Black' else 'w'}.png)\n " + table_legal_moves if len(trad_moves) > 0 else message}\n\nhow to play:\n- Click on a move link above to open a new issue\n- Do not modify the issue title or description\n- Simply click the "Submit" button to create the issue\n- The game will automatically process your move\n---\ninspired in chess game by [timburgan](https://github.com/timburgan/timburgan)"""
 
                   current_readme = repo.get_contents('README.md')
 
